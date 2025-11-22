@@ -1,16 +1,21 @@
 # City Voice
 
-A complaint management system built with Streamlit and database integration.
+City Voice is a modular complaint management system built using **Python**, **Streamlit**, and a relational **SQL database**.  
+It includes an admin dashboard, status management logic, and action logging for traceability.
 
 ## Features
-- Submit complaints
-- Admin dashboard for managing statuses
-- Database logging for all actions
+- Structured complaint submission workflow
+- Admin panel for updating complaint status (`Pending`, `In Progress`, `Resolved`)
+- Real-time Streamlit interface with dynamic table rendering
+- Database-backed CRUD operations
+- Automatic logging of all admin actions for auditability
 
 ## Tech Stack
-- Python
-- Streamlit
-- SQLite / MySQL (depending on your setup)
+- **Python** — core backend logic
+- **Streamlit** — UI layer for real-time interaction
+- **SQLite / MySQL** — persistent data storage (configurable in `db.py`)
+- **Git + GitHub** — version control and collaboration
 
 ---
-More details and screenshots coming soon.
+
+
