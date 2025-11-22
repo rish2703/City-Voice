@@ -1,0 +1,11 @@
+complaint_id,citizen_name,location,complaint_text,date
+1,Ravi Kumar,Koramangala,"Garbage overflowing in my street for 3 days",2024-01-12
+2,Priya Sharma,Whitefield,"There is a major water leakage near our apartment gate",2024-01-15
+3,Arjun Rao,Indiranagar,"Streetlight not working near the main road",2024-01-18
+4,Meena Patil,Jayanagar,"Heavy traffic congestion near signal every morning",2024-01-20
+5,Sanjay Verma,HSR Layout,"Drainage smell coming from open manhole",2024-01-22
+6,Latha Reddy,BTM Layout,"Electricity fluctuations happening every night",2024-01-23
+7,Karim Khan,MG Road,"Loud construction noise at night after 10pm",2024-01-25
+8,Shreya Menon,Hebbal,"Garbage truck not coming on scheduled days",2024-01-28
+9,Anita Gupta,Kalyan Nagar,"Sewage water overflowing on the street",2024-01-30
+10,Vikram Singh,Marathahalli,"Water supply extremely low pressure today",2024-02-01
