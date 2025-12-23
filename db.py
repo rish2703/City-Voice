@@ -15,18 +15,21 @@ def get_connection():
         return None
 
 
-def insert_complaint(name, location, original_text, clean_text, category, priority):
+def insert_complaint(name, location, original_text, clean_text, category, priority, 
+                     ai_summary=None, priority_reasoning=None, is_ai_processed=True):
     try:
         connection = get_connection()
         cursor = connection.cursor()
 
         sql = """
         INSERT INTO complaints 
-        (citizen_name, location, complaint_text, clean_text, category, priority)
-        VALUES (%s, %s, %s, %s, %s, %s)
+        (citizen_name, location, complaint_text, clean_text, category, priority, 
+         ai_summary, priority_reasoning, is_ai_processed)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
 
-        values = (name, location, original_text, clean_text, category, priority)
+        values = (name, location, original_text, clean_text, category, priority,
+                  ai_summary, priority_reasoning, is_ai_processed)
         cursor.execute(sql, values)
         connection.commit()
 
