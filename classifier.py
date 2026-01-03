@@ -1,26 +1,23 @@
 import os
-from openai import OpenAI
+import google.generativeai as genai
 from dotenv import load_dotenv
 from preprocessing import preprocess_text
 
 # Load environment variables from .env file
 load_dotenv()
 
-# Initialize OpenAI client
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+# Initialize Gemini client
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 def classify_complaint_ai(text):
     """
-    Uses OpenAI GPT-4 to classify the complaint into predefined categories.
+    Uses Google Gemini to classify the complaint into predefined categories.
     Falls back to keyword-based classification if API fails.
     """
     try:
-        response = client.chat.completions.create(
-            model="gpt-4o-mini",  # Using gpt-4o-mini for cost efficiency
-            messages=[
-                {
-                    "role": "system",
-                    "content": """You are an expert complaint classifier for municipal services.
+        model = genai.GenerativeModel("gemini-pro")
+        
+        prompt = """You are an expert complaint classifier for municipal services.
 Classify the complaint into exactly ONE of these categories:
 - Waste (garbage, trash, dustbin, refuse collection)
 - Water (leakage, supply, pipe, contamination)
@@ -30,18 +27,12 @@ Classify the complaint into exactly ONE of these categories:
 - Noise (loud sounds, construction, disturbance)
 - Other (anything that doesn't fit above)
 
-Return ONLY the category name, nothing else."""
-                },
-                {
-                    "role": "user",
-                    "content": f"Classify this complaint: {text}"
-                }
-            ],
-            temperature=0.3,  # Lower temperature for consistent classification
-            max_tokens=10
-        )
+Return ONLY the category name, nothing else.
+
+Complaint: {text}"""
         
-        category = response.choices[0].message.content.strip()
+        response = model.generate_content(prompt)
+        category = response.text.strip()
         
         # Validate category
         valid_categories = ["Waste", "Water", "Traffic", "Electricity", "Sanitation", "Noise", "Other"]

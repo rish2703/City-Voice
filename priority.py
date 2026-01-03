@@ -1,26 +1,23 @@
 import os
-from openai import OpenAI
+import google.generativeai as genai
 from dotenv import load_dotenv
 from preprocessing import preprocess_text
 
 # Load environment variables
 load_dotenv()
 
-# Initialize OpenAI client
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+# Initialize Gemini client
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 def assign_priority_ai(text):
     """
-    Uses OpenAI GPT-4 to analyze complaint urgency and assign priority.
+    Uses Google Gemini to analyze complaint urgency and assign priority.
     Returns a dictionary with priority and reasoning.
     """
     try:
-        response = client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[
-                {
-                    "role": "system",
-                    "content": """You are an expert at triaging municipal complaints.
+        model = genai.GenerativeModel("gemini-pro")
+        
+        prompt = """You are an expert at triaging municipal complaints.
 Analyze the urgency and assign a priority level:
 
 HIGH Priority (life-threatening, severe public safety/health risks):
@@ -42,18 +39,12 @@ LOW Priority (minor inconveniences, routine issues):
 
 Respond in this exact format:
 Priority: [High/Medium/Low]
-Reasoning: [One sentence explaining why]"""
-                },
-                {
-                    "role": "user",
-                    "content": f"Analyze this complaint: {text}"
-                }
-            ],
-            temperature=0.3,
-            max_tokens=100
-        )
+Reasoning: [One sentence explaining why]
+
+Complaint: {text}"""
         
-        content = response.choices[0].message.content.strip()
+        response = model.generate_content(prompt)
+        content = response.text.strip()
         
         # Parse response
         lines = content.split('\n')
