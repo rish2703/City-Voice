@@ -16,27 +16,31 @@ def get_connection():
 
 
 def insert_complaint(name, location, original_text, clean_text, category, priority, 
-                     ai_summary=None, priority_reasoning=None, is_ai_processed=True):
+                     zone=None, ai_summary=None, priority_reasoning=None, is_ai_processed=True):
     try:
         connection = get_connection()
         cursor = connection.cursor()
 
         sql = """
         INSERT INTO complaints 
-        (citizen_name, location, complaint_text, clean_text, category, priority, 
+        (citizen_name, location, complaint_text, clean_text, category, priority, zone,
          ai_summary, priority_reasoning, is_ai_processed)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
 
-        values = (name, location, original_text, clean_text, category, priority,
+        values = (name, location, original_text, clean_text, category, priority, zone,
                   ai_summary, priority_reasoning, is_ai_processed)
         cursor.execute(sql, values)
         connection.commit()
-
+        
+        # Return the inserted complaint_id
+        complaint_id = cursor.lastrowid
         print("Complaint inserted successfully!")
+        return complaint_id
 
     except Exception as e:
         print("Failed to insert complaint:", e)
+        return None
 
     finally:
         if connection and connection.is_connected():
