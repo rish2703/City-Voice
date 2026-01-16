@@ -1,8 +1,8 @@
 import time
-from preprocessing import preprocess_text
-from classifier import classify_complaint
-from priority import assign_priority_with_reasoning
-from ai_summary import generate_summary
+from ai.preprocessing import preprocess_text
+from ai.classifier import classify_complaint
+from ai.priority import assign_priority_with_reasoning
+from ai.ai_summary import generate_summary
 
 def process_complaint(text):
     """

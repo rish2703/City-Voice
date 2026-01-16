@@ -1,7 +1,7 @@
 import os
 import google.generativeai as genai
 from dotenv import load_dotenv
-from preprocessing import preprocess_text
+from ai.preprocessing import preprocess_text
 
 # Load environment variables
 load_dotenv()

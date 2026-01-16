@@ -5,7 +5,7 @@ def get_connection():
         connection = mysql.connector.connect(
             host="localhost",
             user="root",            # change if your username is different
-            password="newpassword", # your MySQL password
+            password="Varun@270304", # your MySQL password
             database="cityvoice"
         )
         
@@ -17,8 +17,13 @@ def get_connection():
 
 def insert_complaint(name, location, original_text, clean_text, category, priority, 
                      zone=None, ai_summary=None, priority_reasoning=None, is_ai_processed=True):
+    connection = None
+    cursor = None
     try:
         connection = get_connection()
+        if not connection:
+            raise Exception("Database connection failed. Check MySQL is running and credentials are correct.")
+        
         cursor = connection.cursor()
 
         sql = """
@@ -35,16 +40,19 @@ def insert_complaint(name, location, original_text, clean_text, category, priori
         
         # Return the inserted complaint_id
         complaint_id = cursor.lastrowid
-        print("Complaint inserted successfully!")
+        print(f"Complaint inserted successfully! ID: {complaint_id}")
         return complaint_id
 
     except Exception as e:
-        print("Failed to insert complaint:", e)
-        return None
+        error_msg = f"Failed to insert complaint: {str(e)}"
+        print(error_msg)
+        # Re-raise exception so it can be caught and displayed in Streamlit
+        raise Exception(error_msg)
 
     finally:
-        if connection and connection.is_connected():
+        if cursor:
             cursor.close()
+        if connection and connection.is_connected():
             connection.close()
 
 def update_status(complaint_id, new_status, image_path=None):

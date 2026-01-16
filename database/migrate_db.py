@@ -12,7 +12,7 @@ Run this ONCE before using the AI features.
 """
 
 import mysql.connector
-from db import get_connection
+from database.db import get_connection
 
 def run_migration():
     try:

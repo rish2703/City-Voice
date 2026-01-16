@@ -7,7 +7,7 @@ Run this AFTER migrating the database with migrate_db.py
 
 import os
 from dotenv import load_dotenv
-from pipeline import process_complaint
+from ai.pipeline import process_complaint
 
 # Load environment variables
 load_dotenv()
