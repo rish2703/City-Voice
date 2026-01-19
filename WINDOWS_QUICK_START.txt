@@ -1,0 +1,132 @@
+╔══════════════════════════════════════════════════════════════╗
+║         CITY VOICE - WINDOWS QUICK START GUIDE              ║
+╚══════════════════════════════════════════════════════════════╝
+
+📍 LOCATION
+-----------
+Project Folder: C:\Users\navya\OneDrive\Desktop\City-Voice-main
+
+
+🚀 QUICK START (3 COMMANDS)
+----------------------------
+
+1. Open PowerShell:
+   - Press Windows Key + X
+   - Click "Windows PowerShell" or "Terminal"
+   - OR Press Windows Key + R, type "powershell", press Enter
+
+2. Navigate to project:
+   cd "C:\Users\navya\OneDrive\Desktop\City-Voice-main"
+
+3. Install & Run:
+   python -m pip install -r requirements.txt
+   streamlit run core/unified_app.py
+
+4. Open browser:
+   http://localhost:8501
+
+
+📋 DETAILED STEPS
+-----------------
+
+STEP 1: Install Python Packages
+   Command: python -m pip install -r requirements.txt
+   Wait for: "Successfully installed..." message
+
+STEP 2: Start the App
+   Command: streamlit run core/unified_app.py
+   Wait for: "You can now view your Streamlit app..."
+   Look for: Local URL: http://localhost:8501
+
+STEP 3: Open Browser
+   - Open Chrome/Edge/Firefox
+   - Go to: http://localhost:8501
+   - You'll see the City Voice homepage
+
+STEP 4: Stop the App
+   - Go back to PowerShell window
+   - Press: CTRL + C
+   - Type: Y (if asked)
+
+
+🔧 TROUBLESHOOTING
+------------------
+
+❌ Error: "python is not recognized"
+   → Install Python from python.org
+   → Make sure "Add Python to PATH" is checked during installation
+
+❌ Error: "ModuleNotFoundError: No module named 'mysql'"
+   → Run: python -m pip install mysql-connector-python
+
+❌ Error: "Port 8501 is already in use"
+   → Use different port: streamlit run core/unified_app.py --server.port 8502
+   → Then open: http://localhost:8502
+
+❌ Error: "Database connection failed"
+   → Make sure MySQL is running
+   → Check database/db.py for correct MySQL password
+   → Ensure "cityvoice" database exists
+
+
+🎯 TESTING THE APP
+-------------------
+
+PUBLIC USER MODE:
+1. Click "Enter as Public User"
+2. Click "Register" tab
+3. Create account (username, email, password)
+4. Login with your credentials
+5. Browse complaints, upvote, submit new complaint
+
+AUTHORITY MODE:
+1. Click "Enter as Authority"
+2. Select Zone: North
+3. Password: north_auth_123
+4. View dashboard, update complaint status
+
+ZONE PASSWORDS:
+- North: north_auth_123
+- South: south_auth_123
+- East: east_auth_123
+- West: west_auth_123
+- Admin: admin_123
+
+
+📁 PROJECT STRUCTURE
+--------------------
+
+core/
+  ├── unified_app.py          ← MAIN ENTRY POINT (run this!)
+  ├── reddit_interface.py     ← Public user interface
+  ├── authority_interface.py  ← Authority dashboard
+  └── ui_theme.py             ← Styling & theme
+
+database/
+  ├── db.py                   ← Database connection
+  ├── user_auth.py           ← User login/register
+  └── upvotes.py             ← Upvote system
+
+ai/
+  └── (AI processing modules)
+
+requirements.txt              ← All Python packages needed
+
+
+💡 TIPS
+-------
+
+✓ Keep PowerShell window open while app is running
+✓ Code changes auto-reload (no restart needed)
+✓ Use CTRL + C to stop, then restart with same command
+✓ For presentations: Demo Public User → then Authority mode
+✓ Check browser console (F12) for any errors
+
+
+📞 NEED HELP?
+-------------
+
+Check HOW_TO_RUN.txt for more details
+Check PROJECT_ANALYSIS.md for project structure
+Check docs/README.md for feature documentation
+

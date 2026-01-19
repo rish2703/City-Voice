@@ -1,0 +1,107 @@
+City Voice — How to Run on Windows
+===================================
+
+STEP 1: Open PowerShell or Command Prompt
+------------------------------------------
+1. Press Windows Key + R
+2. Type: powershell
+3. Press Enter
+4. Navigate to project folder:
+   cd "C:\Users\navya\OneDrive\Desktop\City-Voice-main"
+
+
+STEP 2: Install Dependencies (First Time Only)
+------------------------------------------------
+python -m pip install -r requirements.txt
+
+This installs:
+- streamlit (web interface)
+- mysql-connector-python (database)
+- pandas, numpy (data processing)
+- and other required packages
+
+
+STEP 3: Make Sure MySQL is Running
+-----------------------------------
+- Open MySQL Workbench or MySQL Command Line
+- Ensure MySQL server is running
+- Database "cityvoice" should exist (or create it)
+
+
+STEP 4: Run the Application
+-----------------------------
+streamlit run core/unified_app.py
+
+The app will start and show:
+  Local URL: http://localhost:8501
+  Network URL: http://192.168.x.x:8501
+
+
+STEP 5: Open in Browser
+------------------------
+1. Open your web browser (Chrome, Edge, Firefox)
+2. Go to: http://localhost:8501
+3. You'll see the City Voice landing page
+
+
+STEP 6: Stop the Application
+------------------------------
+Press CTRL + C in the PowerShell/Command Prompt window
+
+
+QUICK REFERENCE COMMANDS
+========================
+
+# Install dependencies
+python -m pip install -r requirements.txt
+
+# Run the app
+streamlit run core/unified_app.py
+
+# Run on specific port (if 8501 is busy)
+streamlit run core/unified_app.py --server.port 8502
+
+# Stop the app
+Press CTRL + C
+
+
+USAGE GUIDE
+===========
+
+PUBLIC USER MODE:
+- Click "Enter as Public User"
+- Register/Login with username, email, password
+- Browse complaints, upvote, submit new complaints
+
+AUTHORITY MODE:
+- Click "Enter as Authority"
+- Select zone: North/South/East/West/Admin
+- Password: north_auth_123 / south_auth_123 / east_auth_123 / west_auth_123 / admin_123
+- View dashboard, update complaint status, upload photos
+
+
+TROUBLESHOOTING
+===============
+
+Problem: "ModuleNotFoundError: No module named 'mysql'"
+Solution: Run: python -m pip install mysql-connector-python
+
+Problem: "Port 8501 is already in use"
+Solution: Use different port: streamlit run core/unified_app.py --server.port 8502
+
+Problem: "Database connection failed"
+Solution: 
+  1. Make sure MySQL is running
+  2. Check database credentials in database/db.py
+  3. Ensure "cityvoice" database exists
+
+Problem: "Streamlit command not found"
+Solution: Install streamlit: python -m pip install streamlit
+
+
+NOTES
+=====
+- The app runs on http://localhost:8501 by default
+- Keep the PowerShell window open while using the app
+- Changes to code will auto-reload (no need to restart)
+- For presentations: Start in Public User mode, then switch to Authority mode

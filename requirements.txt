@@ -1,0 +1,18 @@
+# requirements.txt for City-Voice-main
+# Add your dependencies below. Example:
+# numpy==1.24.0
+# pandas==2.0.0
+# scikit-learn==1.3.0
+
+# Common dependencies for AI, database, and web projects
+numpy
+pandas
+scikit-learn
+sqlalchemy
+flask
+requests
+streamlit
+google-generativeai
+python-dotenv
+praw
+mysql-connector-python
