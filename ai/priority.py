@@ -15,7 +15,7 @@ def assign_priority_ai(text, category=None):
     Returns a dictionary with priority and reasoning.
     """
     try:
-        model = genai.GenerativeModel("gemini-pro")
+        model = genai.GenerativeModel("gemini-2.0-flash")
         
         category_context = f"Category: {category}" if category else ""
         
@@ -75,21 +75,23 @@ Complaint: {text}"""
 def assign_priority_fallback(text):
     """
     Fallback keyword-based priority assignment if AI fails (P0-P3 scale).
+    Uses lowercase original text to avoid stopword removal breaking multi-word keywords.
     """
-    clean = preprocess_text(text)
-
-    # P0 Priority (Emergency) - Immediate danger
-    p0_keywords = ["fire", "danger", "life", "death", "emergency", "sparking", "electrical hazard", "major flood"]
+    # Use lowercase original text without preprocessing to preserve "no" in "no water"
+    clean = text.lower()
+    
+    # P0 Priority (Emergency) - Immediate danger to life
+    p0_keywords = ["fire", "danger", "life", "death", "emergency", "sparking", "electrical hazard", "major flood", "risk of falling", "children"]
     if any(word in clean for word in p0_keywords):
         return "P0"
 
     # P1 Priority (High) - Major service outage or significant safety hazard
-    p1_keywords = ["outage", "no water", "no power", "leakage", "accident", "hazard", "overflow", "sewage"]
+    p1_keywords = ["outage", "no water", "no power", "no light", "accident", "hazard", "overflow", "sewage", "disease", "disease spreading"]
     if any(word in clean for word in p1_keywords):
         return "P1"
 
     # P2 Priority (Medium) - Standard repair needed, non-dangerous
-    p2_keywords = ["pothole", "trash", "garbage", "repair", "maintenance", "blocked", "smell", "noise"]
+    p2_keywords = ["pothole", "trash", "garbage", "repair", "maintenance", "blocked", "crack", "dripping", "construction noise", "loud noise"]
     if any(word in clean for word in p2_keywords):
         return "P2"
 

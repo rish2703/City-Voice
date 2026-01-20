@@ -15,7 +15,7 @@ def validate_and_classify_complaint_ai(text, selected_category=None):
     Returns a structured response with validation, category, priority, and reasoning.
     """
     try:
-        model = genai.GenerativeModel("gemini-pro")
+        model = genai.GenerativeModel("gemini-2.0-flash")
         
         category_context = f"User-Selected Category: {selected_category}" if selected_category else "No pre-selected category"
         
@@ -93,7 +93,7 @@ def classify_complaint_ai(text):
     Falls back to keyword-based classification if API fails.
     """
     try:
-        model = genai.GenerativeModel("gemini-pro")
+        model = genai.GenerativeModel("gemini-2.0-flash")
         
         prompt = """You are an expert complaint classifier for municipal services.
 Classify the complaint into exactly ONE of these categories:
@@ -129,8 +129,9 @@ Complaint: {text}"""
 def classify_complaint_fallback(text):
     """
     Fallback keyword-based classification if AI fails.
+    Uses lowercase original text to avoid stopword removal breaking keywords.
     """
-    clean = preprocess_text(text)
+    clean = text.lower()
 
     if any(word in clean for word in ["garbage", "waste", "trash", "dustbin"]):
         return "Waste"

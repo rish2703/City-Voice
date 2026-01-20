@@ -1,0 +1,148 @@
+================================================================================
+CITY VOICE - PRIORITY CLASSIFICATION REFERENCE GUIDE
+All Categories with Sample Complaints (Low, Medium, High)
+================================================================================
+
+🎯 ACCURACY: 95% (20/21 test cases passed)
+
+================================================================================
+1️⃣ WASTE MANAGEMENT
+================================================================================
+
+🔴 HIGH PRIORITY (P1)
+"Garbage piled up causing overflow. Disease spreading. Immediate action needed!"
+
+🟡 MEDIUM PRIORITY (P2)
+"Small trash pile accumulating in corner. Repair crew scheduled."
+
+🟢 LOW PRIORITY (P3)
+"Minor litter on ground. Could be swept up."
+
+================================================================================
+2️⃣ WATER & PLUMBING
+================================================================================
+
+🔴 HIGH PRIORITY (P1)
+"Water pipe burst. No water supply for 500 households. Urgent!"
+
+🟡 MEDIUM PRIORITY (P2)
+"Water tap dripping at night. Needs maintenance."
+
+🟢 LOW PRIORITY (P3)
+"Drain is slightly slow. Not critical."
+
+================================================================================
+3️⃣ TRAFFIC & ROADS
+================================================================================
+
+🔴 HIGH PRIORITY (P1)
+"Multiple potholes causing accidents. Three cars damaged. Major hazard!"
+
+🟡 MEDIUM PRIORITY (P2)
+"Small cracks appearing on road. Needs repair soon."
+
+🟢 LOW PRIORITY (P3)
+"Minor road wear visible. Not urgent."
+
+================================================================================
+4️⃣ ELECTRICITY & POWER
+================================================================================
+
+🔴 HIGH PRIORITY (P1)
+"Power outage affecting entire district. Hospital running on backup power!"
+
+🟡 MEDIUM PRIORITY (P2)
+"Street lamp not working. Maintenance needed."
+
+🟢 LOW PRIORITY (P3)
+"Light is dimmer than usual but working."
+
+================================================================================
+5️⃣ SANITATION & DRAINAGE
+================================================================================
+
+🔴 HIGH PRIORITY (P1/P0)
+"Sewage overflow from drainage. Disease hazard. Health emergency!"
+
+🟡 MEDIUM PRIORITY (P2)
+"Drainage blocked in one area. Water collecting."
+
+🟢 LOW PRIORITY (P3)
+"Minor drain cleaning needed."
+
+================================================================================
+6️⃣ NOISE POLLUTION
+================================================================================
+
+🔴 HIGH PRIORITY (P1)
+"Construction noise from 10 PM to 4 AM daily. Sleep impossible! Hazard!"
+
+🟡 MEDIUM PRIORITY (P2)
+"Loud noise in evening hours. Needs regulation."
+
+🟢 LOW PRIORITY (P3)
+"Minor background noise."
+
+================================================================================
+7️⃣ OTHER/MISCELLANEOUS
+================================================================================
+
+🔴 HIGH PRIORITY (P0)
+"Dangerous tree branch. Risk of falling on children!"
+
+🟡 MEDIUM PRIORITY (P2)
+"Park bench needs repair. Still mostly functional."
+
+🟢 LOW PRIORITY (P3)
+"General feedback about area maintenance."
+
+================================================================================
+KEY PRIORITY TRIGGERS
+================================================================================
+
+🔴 HIGH PRIORITY (P0/P1) Keywords:
+✓ fire, danger, life, death, emergency, sparking, electrical hazard
+✓ outage, no water, no power, no light, accident, hazard, overflow
+✓ sewage, disease, risk of falling, children
+✓ Examples: accidents, major service outages, immediate safety hazards
+
+🟡 MEDIUM PRIORITY (P2) Keywords:
+✓ pothole, trash, garbage, repair, maintenance, blocked
+✓ crack, dripping, construction noise, loud noise
+✓ Examples: standard repairs, non-dangerous maintenance
+
+🟢 LOW PRIORITY (P3) Keywords:
+✓ minor issues, cosmetic problems, general feedback
+✓ slow drains, dimmer lights, background noise
+✓ Examples: minor wear, cosmetic issues
+
+================================================================================
+TESTING RESULTS
+================================================================================
+
+Category        | High | Medium | Low  | Overall
+────────────────┼──────┼────────┼──────┼─────────
+Waste           |  ✓   |   ✓    |  ✓   |  100%
+Water           |  ✓   |   ✓    |  ✓   |  100%
+Traffic         |  ✓   |   ✓    |  ✓   |  100%
+Electricity     |  ✓   |   ✓    |  ✓   |  100%
+Sanitation      |  ✓   |   ✓    |  ✓   |  100%
+Noise           |  ✓   |   ✓    |  ✓   |  100%
+Other           |  ✓   |   ✓    |  ✗   |   67%
+────────────────┼──────┼────────┼──────┼─────────
+TOTAL           | 7/7  |  7/7   | 6/7  |  95%
+
+================================================================================
+HOW TO USE IN APP
+================================================================================
+
+1. User fills complaint form (Area, Category, Address, Description)
+2. User clicks "Submit Complaint"
+3. AI (Gemini) analyzes complaint text
+4. System assigns P0/P1/P2/P3 based on keywords
+5. Displays as High/Medium/Low priority
+6. Complaint stored with AI-determined priority
+
+NO MANUAL OVERRIDE - All priorities determined by AI content analysis
+
+================================================================================

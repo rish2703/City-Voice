@@ -22,6 +22,7 @@ from database.user_auth import register_user, login_user, get_user_by_id
 from database.upvotes import upvote_complaint, remove_upvote, get_upvote_count, has_user_upvoted, get_complaints_with_upvotes
 from core.helpers import ALL_AREAS, CATEGORIES, assign_zone, get_complaint_timeline
 from core.ui_theme import inject_global_styles, hero, badge, complaint_card_start, complaint_card_end, display_image_fixed
+from ai.priority import assign_priority_with_reasoning
 
 def render_reddit_interface():
     """Main Reddit-like interface renderer"""
@@ -359,7 +360,7 @@ def render_submit_complaint():
                 placeholder="Provide a detailed description of the issue. Be specific about location, time, and impact..."
             )
             
-            is_urgent = st.checkbox("🚨 Mark as Urgent", help="Check if this requires immediate attention")
+            st.info("💡 AI will analyze your complaint to determine the priority level automatically based on the issue description.")
             
             st.markdown("<div class='cv-divider'></div>", unsafe_allow_html=True)
             submitted = st.form_submit_button("📤 Submit Complaint", use_container_width=True, type="primary")
@@ -368,11 +369,19 @@ def render_submit_complaint():
                 if not area or not category or not complaint_text or not address:
                     st.error("⚠️ Please fill in all required fields marked with (*)")
                 else:
-                    priority = "High" if is_urgent else "Medium"
                     zone = assign_zone(area)
                     
-                    with st.spinner("🔄 Submitting your complaint..."):
+                    with st.spinner("🔄 Analyzing and submitting your complaint..."):
                         try:
+                            # Use AI to assign priority based on complaint content
+                            priority_result = assign_priority_with_reasoning(complaint_text)
+                            ai_priority = priority_result["priority"]
+                            priority_reasoning = priority_result["reasoning"]
+                            
+                            # Convert AI priority (P0-P3) to display priority (High/Medium/Low)
+                            priority_map = {"P0": "High", "P1": "High", "P2": "Medium", "P3": "Low"}
+                            priority = priority_map.get(ai_priority, "Medium")
+                            
                             complaint_id = insert_complaint(
                                 name=st.session_state.username,
                                 location=area,
@@ -382,8 +391,8 @@ def render_submit_complaint():
                                 priority=priority,
                                 zone=zone,
                                 ai_summary=None,
-                                priority_reasoning="Marked as urgent by user" if is_urgent else "Standard priority",
-                                is_ai_processed=False,
+                                priority_reasoning=priority_reasoning,
+                                is_ai_processed=True,
                                 address=address
                             )
                             
@@ -392,7 +401,7 @@ def render_submit_complaint():
                                 st.session_state.last_complaint_id = complaint_id
                                 st.session_state.last_complaint_category = category
                                 st.session_state.last_complaint_priority = priority
-                                st.session_state.last_complaint_is_urgent = is_urgent
+                                st.session_state.last_complaint_is_urgent = ai_priority in ["P0", "P1"]
                                 st.session_state.last_complaint_zone = zone
                                 st.rerun()
                             else:
